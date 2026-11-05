@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🥗 Конструктор здорового раціону — 6 клас</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://cdn.jsdelivr.net/npm/@fontsource/comfortaa@5.0.0/index.css');
+  @import url('https://cdn.jsdelivr.net/npm/@fontsource/nunito@5.0.0/index.css');
+  body { font-family: 'Nunito', sans-serif; background: linear-gradient(135deg, #fef9c3 0%, #dcfce7 50%, #dbeafe 100%); min-height: 100vh; }
+  h1, h2, h3, .logo { font-family: 'Comfortaa', cursive; }
+  .card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+  .card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+  .badge-good { background: linear-gradient(135deg, #10b981, #34d399); }
+  .badge-moderate { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+  .badge-bad { background: linear-gradient(135deg, #ef4444, #f87171); }
+  .filter-btn.active { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+  .vitamin-pill { animation: float 3s ease-in-out infinite; }
+  .vitamin-pill:nth-child(2) { animation-delay: 0.5s; }
+  .vitamin-pill:nth-child(3) { animation-delay: 1s; }
+  .vitamin-pill:nth-child(4) { animation-delay: 1.5s; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes pop { 0% { transform: scale(0); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+  .pop { animation: pop 0.4s ease-out; }
+  .plate-section { transition: all 0.3s; }
+  .plate-section:hover { transform: scale(1.05); }
+  .scroll-smooth { scroll-behavior: smooth; }
+  .gradient-text { background: linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .modal-bg { backdrop-filter: blur(8px); }
+  .ribbon { background: repeating-linear-gradient(45deg, #fef3c7, #fef3c7 10px, #fde68a 10px, #fde68a 20px); }
+  .meal-slot { min-height: 80px; transition: all 0.3s; }
+  .meal-slot.drag-over { background: rgba(255,255,255,0.4); transform: scale(1.02); }
+  .step-dot.active { background: #10b981; color: white; transform: scale(1.2); }
+  .step-dot.done { background: #3b82f6; color: white; }
+  .step-dot { transition: all 0.3s; }
+  .meal-chip { animation: pop 0.3s ease-out; }
+  .result-bar { transition: width 1s ease-out; }
+  .tab-btn.active { background: white; color: #7c3aed; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+</style>
+</head>
+<body class="scroll-smooth">
+
+<!-- HEADER -->
+<header class="relative overflow-hidden py-10 px-4">
+  <div class="max-w-6xl mx-auto text-center relative z-10">
+    <div class="inline-block ribbon px-6 py-1 rounded-full mb-4 text-sm font-bold text-amber-800">
+      🎒 Урок «Здоров'я, безпека та добробут» • 6 клас
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4">
+      🥗 Конструктор здорового раціону
+    </h1>
+    <p class="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
+      Дізнайся, які вітаміни містяться у продуктах, скільки в них калорій, 
+      які продукти <span class="font-bold text-green-600">обов'язкові</span> для твого меню, 
+      а які <span class="font-bold text-red-600">краще не їсти</span> 🍔➡️🥦
+    </p>
+  </div>
+</header>
+
+<!-- NAV TABS -->
+<nav class="max-w-6xl mx-auto px-4 mb-8">
+  <div class="bg-white/60 backdrop-blur rounded-full p-2 flex flex-wrap gap-2 justify-center shadow-lg">
+    <button class="tab-btn active px-5 py-2 rounded-full font-bold transition" data-tab="info">📚 Дізнатися</button>
+    <button class="tab-btn px-5 py-2 rounded-full font-bold transition" data-tab="task">🎯 Компетентнісне завдання</button>
+    <button class="tab-btn px-5 py-2 rounded-full font-bold transition" data-tab="builder">🛠️ Мій раціон</button>
+    <button class="tab-btn px-5 py-2 rounded-full font-bold transition" data-tab="danger">⚠️ Небезпеки</button>
+  </div>
+</nav>
+
+<!-- TAB: INFO -->
+<section id="tab-info" class="tab-content">
+
+  <!-- VITAMINS INFO -->
+  <section class="max-w-6xl mx-auto px-4 mb-10">
+    <div class="bg-white/80 rounded-3xl p-6 shadow-xl border-4 border-white">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-purple-700">💊 Головні вітаміни — суперсили твого тіла!</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="vitamin-pill bg-gradient-to-br from-orange-400 to-amber-500 text-white rounded-2xl p-4 text-center shadow-lg">
+          <div class="text-4xl mb-1">🥕</div>
+          <div class="font-bold text-xl">Вітамін A</div>
+          <div class="text-sm mt-1">Зір, шкіра, імунітет</div>
+          <div class="text-xs mt-2 opacity-90">Морква, печінка, яйця</div>
+        </div>
+        <div class="vitamin-pill bg-gradient-to-br from-yellow-400 to-orange-400 text-white rounded-2xl p-4 text-center shadow-lg">
+          <div class="text-4xl mb-1">🍊</div>
+          <div class="font-bold text-xl">Вітамін C</div>
+          <div class="text-sm mt-1">Захист від застуди</div>
+          <div class="text-xs mt-2 opacity-90">Цитрусові, перець, смородина</div>
+        </div>
+        <div class="vitamin-pill bg-gradient-to-br from-blue-400 to-cyan-500 text-white rounded-2xl p-4 text-center shadow-lg">
+          <div class="text-4xl mb-1">🐟</div>
+          <div class="font-bold text-xl">Вітамін D</div>
+          <div class="text-sm mt-1">Міцні кістки та зуби</div>
+          <div class="text-xs mt-2 opacity-90">Риба, яйця, сонце ☀️</div>
+        </div>
+        <div class="vitamin-pill bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-2xl p-4 text-center shadow-lg">
+          <div class="text-4xl mb-1">🥜</div>
+          <div class="font-bold text-xl">Вітамін E</div>
+          <div class="text-sm mt-1">Молодість клітин</div>
+          <div class="text-xs mt-2 opacity-90">Горіхи, олія, авокадо</div>
+        </div>
+      </div>
+      <div class="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="bg-red-50 border-2 border-red-200 rounded-xl p-3 text-center">
+          <div class="font-bold text-red-700">🩸 Вітамін K</div>
+          <div class="text-xs text-gray-700">Згортання крові • Броколі, шпинат</div>
+        </div>
+        <div class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-3 text-center">
+          <div class="font-bold text-yellow-700">⚡ Вітаміни групи B</div>
+          <div class="text-xs text-gray-700">Енергія, нерви • Гречка, м'ясо, горіхи</div>
+        </div>
+        <div class="bg-pink-50 border-2 border-pink-200 rounded-xl p-3 text-center">
+          <div class="font-bold text-pink-700">💪 Кальцій + Фосфор</div>
+          <div class="text-xs text-gray-700">Кістки • Молоко, сир, риба</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <section class="max-w-6xl mx-auto px-4 mb-6">
+    <div class="flex flex-wrap gap-3 justify-center">
+      <button data-filter="all" class="filter-btn active bg-gray-800 text-white px-6 py-3 rounded-full font-bold shadow-lg">🌈 Усі продукти</button>
+      <button data-filter="good" class="filter-btn bg-green-500 text-white px-6 py-3 rounded-full font-bold shadow-lg">✅ Обов'язкові</button>
+      <button data-filter="moderate" class="filter-btn bg-yellow-500 text-white px-6 py-3 rounded-full font-bold shadow-lg">⚠️ Помірні</button>
+      <button data-filter="bad" class="filter-btn bg-red-500 text-white px-6 py-3 rounded-full font-bold shadow-lg">🚫 Шкідливі</button>
+    </div>
+  </section>
+
+  <!-- PRODUCTS GRID -->
+  <section class="max-w-6xl mx-auto px-4 mb-10">
+    <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+  </section>
+
+  <!-- HEALTHY PLATE -->
+  <section class="max-w-6xl mx-auto px-4 mb-10">
+    <div class="bg-white/80 rounded-3xl p-6 md:p-10 shadow-xl border-4 border-white">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-green-700">🍽️ Тарілка здорового харчування</h2>
+      <p class="text-center text-gray-600 mb-6">Так має виглядати кожен твій основний прийом їжі!</p>
+      <div class="relative w-72 h-72 md:w-96 md:h-96 mx-auto rounded-full border-8 border-gray-200 overflow-hidden shadow-2xl">
+        <div class="plate-section absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-to-br from-green-300 to-green-500 flex flex-col items-center justify-center text-white p-2 cursor-pointer" data-plate="veg">
+          <div class="text-4xl md:text-5xl">🥦🍎</div>
+          <div class="font-bold text-sm md:text-base mt-1">Овочі та фрукти</div>
+          <div class="text-xs font-bold">50%</div>
+        </div>
+        <div class="plate-section absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-br from-red-300 to-red-500 flex flex-col items-center justify-center text-white p-2 cursor-pointer" data-plate="protein">
+          <div class="text-4xl md:text-5xl">🍗🐟</div>
+          <div class="font-bold text-sm md:text-base mt-1">Білки</div>
+          <div class="text-xs font-bold">25%</div>
+        </div>
+        <div class="plate-section absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-br from-yellow-300 to-amber-500 flex flex-col items-center justify-center text-white p-2 cursor-pointer" data-plate="grain">
+          <div class="text-4xl md:text-5xl">🍚🌾</div>
+          <div class="font-bold text-sm md:text-base mt-1">Каші та злаки</div>
+          <div class="text-xs font-bold">25%</div>
+        </div>
+        <div class="plate-section absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-br from-blue-300 to-blue-500 flex flex-col items-center justify-center text-white p-2 cursor-pointer" data-plate="dairy">
+          <div class="text-4xl md:text-5xl">🥛🧀</div>
+          <div class="font-bold text-sm md:text-base mt-1">Молочне</div>
+          <div class="text-xs font-bold">+</div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center shadow-xl border-4 border-gray-100">
+          <div class="text-2xl md:text-3xl">💧</div>
+        </div>
+      </div>
+      <p class="text-center mt-6 text-gray-700 font-semibold">💧 Не забувай про воду — 6–8 склянок на день!</p>
+    </div>
+  </section>
+</section>
+
+<!-- TAB: COMPETENCY TASK -->
+<section id="tab-task" class="tab-content hidden">
+  <div class="max-w-6xl mx-auto px-4 mb-10">
+    <div class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-3xl p-6 md:p-10 shadow-2xl text-white">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-3">🎯 Компетентнісне завдання</h2>
+      <p class="text-center opacity-95 mb-8 text-lg">Створи власний «Конструктор здорового раціону» на один день!</p>
+
+      <!-- STEPS INDICATOR -->
+      <div class="flex justify-center items-center gap-2 mb-8 flex-wrap">
+        <div class="step-dot active w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 border-white" data-step="1">1</div>
+        <div class="w-8 h-1 bg-white/40 rounded"></div>
+        <div class="step-dot w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 border-white bg-white/20" data-step="2">2</div>
+        <div class="w-8 h-1 bg-white/40 rounded"></div>
+        <div class="step-dot w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 border-white bg-white/20" data-step="3">3</div>
+        <div class="w-8 h-1 bg-white/40 rounded"></div>
+        <div class="step-dot w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 border-white bg-white/20" data-step="4">4</div>
+      </div>
+
+      <!-- STEP 1: Situation -->
+      <div class="step-panel" data-step="1">
+        <div class="bg-white/15 rounded-2xl p-6 backdrop-blur-sm mb-4">
+          <h3 class="text-2xl font-bold mb-3">📖 Життєва ситуація</h3>
+          <p class="text-lg leading-relaxed">
+            Уяви, що ти помітив: останнім часом часто відчуваєш втому, швидко втрачаєш енергію на уроках і заняттях спортом. 
+            Ти вирішив переглянути свій щоденний раціон і з'ясувати, чи отримує організм достатньо поживних речовин та вітамінів.
+          </p>
+          <div class="mt-4 bg-yellow-300 text-gray-900 rounded-xl p-4 font-bold">
+            💡 Твоє завдання: скласти збалансоване меню на один день (сніданок, обід, 2 перекуси, вечеря) та перевірити, чи воно дійсно здорове!
+          </div>
+        </div>
+        <button class="next-step-btn w-full bg-white text-purple-600 py-4 rounded-2xl font-bold text-lg shadow-xl hover:scale-[1.02] transition">
+          Далі → Скласти меню
+        </button>
+      </div>
+
+      <!-- STEP 2: Build menu -->
+      <div class="step-panel hidden" data-step="2">
+        <div class="bg-white/15 rounded-2xl p-5 backdrop-blur-sm mb-4">
+          <h3 class="text-2xl font-bold mb-3">🍽️ Обери продукти для кожного прийому їжі</h3>
+          <p class="mb-4 opacity-90">Натискай на продукти нижче, щоб додати їх до відповідного прийому їжі. Обирай розумно!</p>
+
+          <div class="grid md:grid-cols-2 gap-3 mb-4">
+            <div class="bg-white/20 rounded-xl p-3">
+              <div class="font-bold mb-2">🌅 Сніданок <span class="meal-count" data-meal="breakfast">(0)</span></div>
+              <div class="meal-slot bg-white/10 rounded-lg p-2 min-h-[60px] flex flex-wrap gap-1" data-meal="breakfast"></div>
+            </div>
+            <div class="bg-white/20 rounded-xl p-3">
+              <div class="font-bold mb-2">🍎 Перекус 1 <span class="meal-count" data-meal="snack1">(0)</span></div>
+              <div class="meal-slot bg-white/10 rounded-lg p-2 min-h-[60px] flex flex-wrap gap-1" data-meal="snack1"></div>
+            </div>
+            <div class="bg-white/20 rounded-xl p-3">
+              <div class="font-bold mb-2">☀️ Обід <span class="meal-count" data-meal="lunch">(0)</span></div>
+              <div class="meal-slot bg-white/10 rounded-lg p-2 min-h-[60px] flex flex-wrap gap-1" data-meal="lunch"></div>
+            </div>
+            <div class="bg-white/20 rounded-xl p-3">
+              <div class="font-bold mb-2">🍪 Перекус 2 <span class="meal-count" data-meal="snack2">(0)</span></div>
+              <div class="meal-slot bg-white/10 rounded-lg p-2 min-h-[60px] flex flex-wrap gap-1" data-meal="snack2"></div>
+            </div>
+            <div class="bg-white/20 rounded-xl p-3 md:col-span-2">
+              <div class="font-bold mb-2">🌙 Вечеря <span class="meal-count" data-meal="dinner">(0)</span></div>
+              <div class="meal-slot bg-white/10 rounded-lg p-2 min-h-[60px] flex flex-wrap gap-1" data-meal="dinner"></div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 mb-3 justify-center">
+            <button class="meal-target-btn bg-orange-400 text-white px-3 py-2 rounded-full text-sm font-bold" data-target="breakfast">🌅 Сніданок</button>
+            <button class="meal-target-btn bg-pink-400 text-white px-3 py-2 rounded-full text-sm font-bold" data-target="snack1">🍎 Перекус 1</button>
+            <button class="meal-target-btn bg-yellow-400 text-white px-3 py-2 rounded-full text-sm font-bold" data-target="lunch">☀️ Обід</button>
+            <button class="meal-target-btn bg-purple-400 text-white px-3 py-2 rounded-full text-sm font-bold" data-target="snack2">🍪 Перекус 2</button>
+            <button class="meal-target-btn bg-blue-400 text-white px-3 py-2 rounded-full text-sm font-bold" data-target="dinner">🌙 Вечеря</button>
+          </div>
+          <p class="text-center text-sm opacity-90 mb-3">Активний прийом їжі: <span id="activeMealName" class="font-bold">🌅 Сніданок</span></p>
+
+          <!-- Quick product picker -->
+          <div class="bg-white/10 rounded-xl p-3">
+            <div class="text-sm font-bold mb-2">Швидкий вибір продуктів (натисни, щоб додати до активного прийому):</div>
+            <div id="taskProductPicker" class="grid grid-cols-3 md:grid-cols-6 gap-2"></div>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button class="prev-step-btn flex-1 bg-white/30 text-white py-3 rounded-2xl font-bold hover:bg-white/50">← Назад</button>
+          <button class="next-step-btn flex-1 bg-white text-purple-600 py-3 rounded-2xl font-bold shadow-xl hover:scale-[1.02] transition">Далі → Перевірити</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Check -->
+      <div class="step-panel hidden" data-step="3">
+        <div class="bg-white/15 rounded-2xl p-6 backdrop-blur-sm mb-4">
+          <h3 class="text-2xl font-bold mb-3">🔍 Перевірка твого меню</h3>
+          <div id="taskSummary" class="space-y-3 mb-4"></div>
+          <button id="analyzeBtn" class="w-full bg-yellow-400 text-gray-900 py-4 rounded-2xl font-bold text-lg shadow-xl hover:scale-[1.02] transition">
+            🔬 Аналізувати мій раціон
+          </button>
+          <div id="taskAnalysis" class="mt-4 hidden"></div>
+        </div>
+        <div class="flex gap-3">
+          <button class="prev-step-btn flex-1 bg-white/30 text-white py-3 rounded-2xl font-bold hover:bg-white/50">← Назад</button>
+          <button class="next-step-btn flex-1 bg-white text-purple-600 py-3 rounded-2xl font-bold shadow-xl hover:scale-[1.02] transition">Далі → Результат</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Result -->
+      <div class="step-panel hidden" data-step="4">
+        <div class="bg-white/15 rounded-2xl p-6 backdrop-blur-sm mb-4">
+          <h3 class="text-2xl font-bold mb-3">🏆 Мій результат</h3>
+          <div id="taskFinalResult"></div>
+        </div>
+        <div class="flex gap-3">
+          <button class="prev-step-btn flex-1 bg-white/30 text-white py-3 rounded-2xl font-bold hover:bg-white/50">← Назад</button>
+          <button id="restartTaskBtn" class="flex-1 bg-yellow-400 text-gray-900 py-3 rounded-2xl font-bold shadow-xl hover:scale-[1.02] transition">🔄 Спробувати ще раз</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAB: BUILDER (free) -->
+<section id="tab-builder" class="tab-content hidden">
+  <section class="max-w-6xl mx-auto px-4 mb-10">
+    <div class="bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 rounded-3xl p-6 md:p-10 shadow-2xl text-white">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">🛠️ Мій раціон на день (вільний режим)</h2>
+      <p class="text-center opacity-90 mb-6">Натискай «+ Додати» на картках продуктів у вкладці «Дізнатися»</p>
+      
+      <div class="bg-white/20 rounded-2xl p-4 min-h-[120px] mb-4 backdrop-blur-sm">
+        <div id="rationEmpty" class="text-center py-6 opacity-80">
+          <div class="text-5xl mb-2">🍽️</div>
+          <p>Тут з'являться обрані тобою продукти</p>
+        </div>
+        <div id="rationList" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        <div class="bg-white/20 rounded-xl p-3 text-center backdrop-blur-sm">
+          <div class="text-xs opacity-80">Калорії</div>
+          <div id="totalCal" class="text-2xl font-bold">0</div>
+          <div class="text-xs opacity-70">/ 2000 ккал</div>
+        </div>
+        <div class="bg-white/20 rounded-xl p-3 text-center backdrop-blur-sm">
+          <div class="text-xs opacity-80">Білки</div>
+          <div id="totalP" class="text-2xl font-bold">0 г</div>
+        </div>
+        <div class="bg-white/20 rounded-xl p-3 text-center backdrop-blur-sm">
+          <div class="text-xs opacity-80">Жири</div>
+          <div id="totalF" class="text-2xl font-bold">0 г</div>
+        </div>
+        <div class="bg-white/20 rounded-xl p-3 text-center backdrop-blur-sm">
+          <div class="text-xs opacity-80">Вуглеводи</div>
+          <div id="totalC" class="text-2xl font-bold">0 г</div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3 justify-center">
+        <button id="checkRationBtn" class="bg-white text-purple-600 px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition">🔍 Перевірити раціон</button>
+        <button id="clearRationBtn" class="bg-white/30 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-white/50 transition">🗑️ Очистити</button>
+        <button id="loadExampleBtn" class="bg-yellow-400 text-gray-800 px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition">✨ Приклад збалансованого дня</button>
+      </div>
+
+      <div id="rationResult" class="mt-4 hidden"></div>
+    </div>
+  </section>
+</section>
+
+<!-- TAB: DANGER -->
+<section id="tab-danger" class="tab-content hidden">
+  <section class="max-w-6xl mx-auto px-4 mb-10">
+    <div class="bg-gradient-to-br from-red-500 to-red-700 rounded-3xl p-6 md:p-10 shadow-2xl text-white">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">⚠️ Чому ці продукти небезпечні?</h2>
+      <p class="text-center opacity-90 mb-6">Якщо їсти їх часто — можна захворіти</p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-white/15 rounded-2xl p-4 backdrop-blur-sm">
+          <div class="text-3xl mb-2">🍟🥤</div>
+          <h3 class="font-bold text-lg mb-1">Чипси, сухарики, Мівіна</h3>
+          <p class="text-sm">Багато солі, підсилювачів смаку, трансжирів. <b>Наслідки:</b> гастрит, проблеми зі шлунком, зайва вага.</p>
+        </div>
+        <div class="bg-white/15 rounded-2xl p-4 backdrop-blur-sm">
+          <div class="text-3xl mb-2">🍔🍕</div>
+          <h3 class="font-bold text-lg mb-1">Бургери, піца з фастфуду</h3>
+          <p class="text-sm">Занадто багато жиру, солі та калорій, але мало вітамінів. <b>Наслідки:</b> ожиріння, хвороби серця.</p>
+        </div>
+        <div class="bg-white/15 rounded-2xl p-4 backdrop-blur-sm">
+          <div class="text-3xl mb-2">🍬🍫</div>
+          <h3 class="font-bold text-lg mb-1">Солодощі, газовані напої</h3>
+          <p class="text-sm">Дуже багато цукру. <b>Наслідки:</b> карієс, діабет, стрибки енергії та втома.</p>
+        </div>
+        <div class="bg-white/15 rounded-2xl p-4 backdrop-blur-sm">
+          <div class="text-3xl mb-2">⚡🥤</div>
+          <h3 class="font-bold text-lg mb-1">Енергетики</h3>
+          <p class="text-sm">Кофеїн, цукор, хімічні добавки. <b>Наслідки:</b> безсоння, серцебиття, виснаження нервової системи.</p>
+        </div>
+      </div>
+      <div class="mt-6 bg-yellow-300 text-gray-900 rounded-2xl p-4 text-center font-bold">
+        💡 Запам'ятай: іноді можна — але не щодня! Твоє тіло — як суперкар, йому потрібне якісне пальне ⛽
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- REFLECTION -->
+<section class="max-w-6xl mx-auto px-4 mb-10">
+  <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl p-6 md:p-10 shadow-2xl text-white text-center">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">📱 Мій здоровий апгрейд</h2>
+    <p class="mb-6 opacity-90">Уяви, що ти оновлюєш себе, як смартфон. Що ти зміниш?</p>
+    <div class="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+      <div class="bg-white/20 rounded-2xl p-4 backdrop-blur-sm">
+        <div class="text-3xl mb-2">➕</div>
+        <div class="font-bold mb-2">Додати звичку</div>
+        <input type="text" placeholder="Наприклад: їсти фрукти" class="w-full bg-white/30 rounded-lg px-3 py-2 text-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white">
+      </div>
+      <div class="bg-white/20 rounded-2xl p-4 backdrop-blur-sm">
+        <div class="text-3xl mb-2">🔄</div>
+        <div class="font-bold mb-2">Змінити звичку</div>
+        <input type="text" placeholder="Менше чіпсів" class="w-full bg-white/30 rounded-lg px-3 py-2 text-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white">
+      </div>
+      <div class="bg-white/20 rounded-2xl p-4 backdrop-blur-sm">
+        <div class="text-3xl mb-2">💡</div>
+        <div class="font-bold mb-2">Нове знання</div>
+        <input type="text" placeholder="Вітамін C — у перці!" class="w-full bg-white/30 rounded-lg px-3 py-2 text-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white">
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="text-center py-6 text-gray-600 text-sm">
+  🌿 Збалансоване харчування = здоров'я + енергія + гарний настрій!
+</footer>
+
+<!-- MODAL -->
+<div id="modal" class="hidden fixed inset-0 bg-black/50 modal-bg z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl pop relative max-h-[90vh] overflow-y-auto">
+    <button id="modalClose" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-xl">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// ============ DATA ============
+const products = [
+  { name: "Яйця", emoji: "🥚", kcal: 155, p: 13, f: 11, c: 1, vitamins: ["A","D","E","B12"], minerals: ["Залізо","Фосфор"], cat: "good", desc: "Чудове джерело білка та вітаміну D. 1–2 яйця на день — корисно!", benefits: "М'язи, кістки, зір", group: ["protein","breakfast"] },
+  { name: "Риба", emoji: "🐟", kcal: 180, p: 20, f: 8, c: 0, vitamins: ["D","A","B12"], minerals: ["Фосфор","Йод","Омега-3"], cat: "good", desc: "Жирна риба дає Омега-3 для мозку.", benefits: "Мозок, серце, пам'ять", group: ["protein","lunch","dinner"] },
+  { name: "М'ясо", emoji: "🍗", kcal: 200, p: 25, f: 10, c: 0, vitamins: ["B12","B6"], minerals: ["Залізо","Цинк"], cat: "good", desc: "Головне джерело білка та заліза.", benefits: "М'язи, кров, енергія", group: ["protein","lunch","dinner"] },
+  { name: "Молоко", emoji: "🥛", kcal: 60, p: 3, f: 3, c: 5, vitamins: ["D","B2","A"], minerals: ["Кальцій"], cat: "good", desc: "Кальцій для міцних кісток та зубів.", benefits: "Кістки, зуби", group: ["dairy","breakfast","snack1"] },
+  { name: "Сир твердий", emoji: "🧀", kcal: 350, p: 25, f: 27, c: 2, vitamins: ["A","B12","D"], minerals: ["Кальцій","Фосфор"], cat: "good", desc: "Дуже багато кальцію! Достатньо 30 г на день.", benefits: "Кістки, м'язи", group: ["dairy","snack1","snack2"] },
+  { name: "Гречка", emoji: "🌾", kcal: 330, p: 13, f: 3, c: 72, vitamins: ["B1","B2","B6"], minerals: ["Залізо","Магній"], cat: "good", desc: "Королева каш! Складні вуглеводи = довга енергія.", benefits: "Енергія, серце", group: ["grain","breakfast","lunch"] },
+  { name: "Овочі", emoji: "🥦", kcal: 30, p: 2, f: 0, c: 6, vitamins: ["C","A","K"], minerals: ["Калій","Клітковина"], cat: "good", desc: "Морква, броколі, перець — половина тарілки!", benefits: "Імунітет, травлення", group: ["veg","lunch","dinner","snack1"] },
+  { name: "Фрукти", emoji: "🍎", kcal: 55, p: 1, f: 0, c: 14, vitamins: ["C","A"], minerals: ["Калій","Клітковина"], cat: "good", desc: "Яблука, банани, апельсини — природні вітаміни.", benefits: "Імунітет, енергія", group: ["veg","snack1","snack2","breakfast"] },
+  { name: "Горіхи", emoji: "🥜", kcal: 600, p: 20, f: 55, c: 15, vitamins: ["E","B1"], minerals: ["Магній","Цинк"], cat: "good", desc: "Жменя на день (30 г). Корисні жири для мозку.", benefits: "Мозок, серце", group: ["snack1","snack2"] },
+  { name: "Йогурт натуральний", emoji: "🥣", kcal: 80, p: 5, f: 3, c: 8, vitamins: ["B12","D"], minerals: ["Кальцій","Пробіотики"], cat: "good", desc: "Без цукру! Корисний для шлунка.", benefits: "Травлення, імунітет", group: ["dairy","breakfast","snack2"] },
+  { name: "Сиркові десерти", emoji: "🍮", kcal: 180, p: 8, f: 7, c: 22, vitamins: ["A","B2"], minerals: ["Кальцій"], cat: "moderate", desc: "Містить цукор. Краще обрати натуральний сир.", benefits: "Кальцій, але багато цукру", group: ["dairy","snack2"] },
+  { name: "Мюслі-батончики", emoji: "🍫", kcal: 400, p: 7, f: 12, c: 65, vitamins: ["B1"], minerals: ["Залізо"], cat: "moderate", desc: "Часто містять багато цукру. Читай етикетку!", benefits: "Енергія, але багато цукру", group: ["snack1","snack2"] },
+  { name: "Шоколад темний", emoji: "🍫", kcal: 540, p: 5, f: 31, c: 60, vitamins: ["E","B2"], minerals: ["Магній","Залізо"], cat: "moderate", desc: "Темний шоколад (70%+) — 1–2 квадратика корисно.", benefits: "Настрій, серце", group: ["snack2"] },
+  { name: "Печиво", emoji: "🍪", kcal: 450, p: 6, f: 18, c: 68, vitamins: ["B1"], minerals: ["Залізо"], cat: "moderate", desc: "Багато цукру та жиру. Іноді можна, але не щодня.", benefits: "Енергія, але зайві калорії", group: ["snack2"] },
+  { name: "Пакетовані соки", emoji: "🧃", kcal: 50, p: 0, f: 0, c: 12, vitamins: ["C"], minerals: [], cat: "moderate", desc: "Містять багато доданого цукру.", benefits: "Вітамін C, але багато цукру", group: ["snack1","snack2"] },
+  { name: "Піца домашня", emoji: "🍕", kcal: 270, p: 11, f: 10, c: 33, vitamins: ["A","B12"], minerals: ["Кальцій"], cat: "moderate", desc: "Домашня з овочами — ок. Фастфуд — рідко.", benefits: "Білок, кальцій", group: ["lunch","dinner"] },
+  { name: "Чипси", emoji: "🍟", kcal: 540, p: 6, f: 35, c: 50, vitamins: [], minerals: ["Сіль"], cat: "bad", desc: "Трансжири, сіль, підсилювачі смаку.", risks: "Ожиріння, гастрит, прищі", group: ["snack1","snack2"] },
+  { name: "Сухарики", emoji: "🥨", kcal: 420, p: 10, f: 15, c: 60, vitamins: [], minerals: ["Сіль","Хімія"], cat: "bad", desc: "Багато солі та хімії. Шкодить шлунку.", risks: "Гастрит, проблеми зі шлунком", group: ["snack1","snack2"] },
+  { name: "Мівіна", emoji: "🍜", kcal: 450, p: 8, f: 18, c: 60, vitamins: [], minerals: ["Сіль"], cat: "bad", desc: "Майже немає вітамінів, дуже багато солі.", risks: "Гастрит, нирки, зайва вага", group: ["lunch","dinner"] },
+  { name: "Бургер фастфуд", emoji: "🍔", kcal: 600, p: 20, f: 35, c: 55, vitamins: [], minerals: ["Сіль","Трансжири"], cat: "bad", desc: "Дуже калорійно, мало вітамінів.", risks: "Ожиріння, серце, судини", group: ["lunch","dinner"] },
+  { name: "Газовані напої", emoji: "🥤", kcal: 45, p: 0, f: 0, c: 11, vitamins: [], minerals: ["Цукор"], cat: "bad", desc: "6–8 ложок цукру в баночці. Нуль користі.", risks: "Карієс, діабет, ожиріння", group: ["snack1","snack2"] },
+  { name: "Енергетики", emoji: "⚡", kcal: 50, p: 0, f: 0, c: 12, vitamins: ["B6","B12"], minerals: ["Кофеїн"], cat: "bad", desc: "Фальшива енергія, потім — сильна втома.", risks: "Безсоння, серцебиття, виснаження", group: ["snack1","snack2"] }
+];
+
+// ============ STATE ============
+let ration = [];
+let taskMenu = { breakfast: [], snack1: [], lunch: [], snack2: [], dinner: [] };
+let activeMeal = 'breakfast';
+let currentStep = 1;
+
+// ============ TABS ============
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+    document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ============ PRODUCTS GRID ============
+const grid = document.getElementById('productsGrid');
+
+function renderProducts(filter = 'all') {
+  grid.innerHTML = '';
+  const filtered = filter === 'all' ? products : products.filter(p => p.cat === filter);
+  filtered.forEach((p) => {
+    const idx = products.indexOf(p);
+    const catClass = p.cat === 'good' ? 'badge-good' : p.cat === 'moderate' ? 'badge-moderate' : 'badge-bad';
+    const catLabel = p.cat === 'good' ? '✅ Обов\'язковий' : p.cat === 'moderate' ? '⚠️ Помірний' : '🚫 Шкідливий';
+    const borderColor = p.cat === 'good' ? 'border-green-300 hover:border-green-500' : p.cat === 'moderate' ? 'border-yellow-300 hover:border-yellow-500' : 'border-red-300 hover:border-red-500';
+    const card = document.createElement('div');
+    card.className = `card bg-white rounded-2xl p-4 shadow-lg border-2 ${borderColor} cursor-pointer`;
+    card.dataset.idx = idx;
+    card.innerHTML = `
+      <div class="flex justify-between items-start mb-2">
+        <div class="text-5xl">${p.emoji}</div>
+        <span class="${catClass} text-white text-xs px-2 py-1 rounded-full font-bold">${catLabel}</span>
+      </div>
+      <h3 class="font-bold text-lg text-gray-800 mb-1">${p.name}</h3>
+      <div class="flex items-baseline gap-1 mb-2">
+        <span class="text-2xl font-bold text-orange-500">${p.kcal}</span>
+        <span class="text-xs text-gray-500">ккал / 100г</span>
+      </div>
+      <div class="grid grid-cols-3 gap-1 text-xs mb-2">
+        <div class="bg-red-50 rounded p-1 text-center"><div class="font-bold text-red-600">Б</div><div>${p.p}г</div></div>
+        <div class="bg-yellow-50 rounded p-1 text-center"><div class="font-bold text-yellow-600">Ж</div><div>${p.f}г</div></div>
+        <div class="bg-blue-50 rounded p-1 text-center"><div class="font-bold text-blue-600">В</div><div>${p.c}г</div></div>
+      </div>
+      <div class="flex flex-wrap gap-1 mb-2">
+        ${p.vitamins.length ? p.vitamins.map(v => `<span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-full font-bold">Віт. ${v}</span>`).join('') : '<span class="text-xs text-gray-400 italic">Без вітамінів</span>'}
+      </div>
+      <div class="text-xs text-gray-600 mb-2" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${p.desc}</div>
+      <button class="add-ration-btn w-full bg-gradient-to-r from-green-400 to-emerald-500 text-white py-2 rounded-lg font-bold hover:from-green-500 hover:to-emerald-600 transition" data-idx="${idx}">
+        + До раціону
+      </button>
+    `;
+    card.addEventListener('click', (e) => {
+      if (e.target.classList.contains('add-ration-btn')) return;
+      openModal(idx);
+    });
+    grid.appendChild(card);
+  });
+}
+
+// Add to ration (free builder)
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('add-ration-btn')) {
+    e.stopPropagation();
+    const idx = parseInt(e.target.dataset.idx);
+    ration.push({...products[idx], idx});
+    renderRation();
+    e.target.textContent = '✓ Додано';
+    e.target.classList.remove('from-green-400','to-emerald-500','hover:from-green-500','hover:to-emerald-600');
+    e.target.classList.add('from-gray-400','to-gray-500');
+    setTimeout(() => {
+      e.target.textContent = '+ До раціону';
+      e.target.classList.add('from-green-400','to-emerald-500','hover:from-green-500','hover:to-emerald-600');
+      e.target.classList.remove('from-gray-400','to-gray-500');
+    }, 1200);
+  }
+});
+
+// ============ MODAL ============
+function openModal(idx) {
+  const p = products[idx];
+  const catLabel = p.cat === 'good' ? '✅ Обов\'язковий продукт' : p.cat === 'moderate' ? '⚠️ Можна їсти помірно' : '🚫 Краще уникати';
+  const catColor = p.cat === 'good' ? 'bg-green-100 text-green-700' : p.cat === 'moderate' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700';
+  document.getElementById('modalContent').innerHTML = `
+    <div class="text-center mb-4">
+      <div class="text-7xl mb-2">${p.emoji}</div>
+      <h3 class="text-2xl font-bold text-gray-800">${p.name}</h3>
+      <span class="${catColor} text-sm px-3 py-1 rounded-full font-bold inline-block mt-2">${catLabel}</span>
+    </div>
+    <div class="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-4 mb-3 text-center">
+      <div class="text-3xl font-bold text-orange-500">${p.kcal} <span class="text-sm">ккал / 100г</span></div>
+    </div>
+    <div class="grid grid-cols-3 gap-2 mb-3">
+      <div class="bg-red-50 rounded-lg p-2 text-center"><div class="text-xs text-gray-600">Білки</div><div class="font-bold text-red-600">${p.p}г</div></div>
+      <div class="bg-yellow-50 rounded-lg p-2 text-center"><div class="text-xs text-gray-600">Жири</div><div class="font-bold text-yellow-600">${p.f}г</div></div>
+      <div class="bg-blue-50 rounded-lg p-2 text-center"><div class="text-xs text-gray-600">Вуглеводи</div><div class="font-bold text-blue-600">${p.c}г</div></div>
+    </div>
+    <div class="mb-3">
+      <div class="font-bold text-sm text-gray-700 mb-1">💊 Вітаміни:</div>
+      <div class="flex flex-wrap gap-1">
+        ${p.vitamins.length ? p.vitamins.map(v => `<span class="bg-purple-100 text-purple-700 text-sm px-3 py-1 rounded-full font-bold">Віт. ${v}</span>`).join('') : '<span class="text-sm text-gray-400 italic">Не містить важливих вітамінів</span>'}
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="font-bold text-sm text-gray-700 mb-1">🧪 Мінерали:</div>
+      <div class="flex flex-wrap gap-1">
+        ${p.minerals.length ? p.minerals.map(m => `<span class="bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full">${m}</span>`).join('') : '<span class="text-sm text-gray-400 italic">—</span>'}
+      </div>
+    </div>
+    <div class="bg-gray-50 rounded-xl p-3 mb-3">
+      <div class="font-bold text-sm text-gray-700 mb-1">📖 Опис:</div>
+      <p class="text-sm text-gray-700">${p.desc}</p>
+    </div>
+    ${p.benefits ? `<div class="bg-green-50 border-2 border-green-200 rounded-xl p-3 mb-2"><div class="font-bold text-green-700 text-sm">✅ Користь:</div><div class="text-sm text-green-800">${p.benefits}</div></div>` : ''}
+    ${p.risks ? `<div class="bg-red-50 border-2 border-red-200 rounded-xl p-3"><div class="font-bold text-red-700 text-sm">⚠️ Чим загрожує:</div><div class="text-sm text-red-800">${p.risks}</div></div>` : ''}
+    <button class="modal-add-btn w-full mt-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white py-3 rounded-xl font-bold" data-idx="${idx}">
+      + Додати до мого раціону
+    </button>
+  `;
+  document.getElementById('modal').classList.remove('hidden');
+}
+
+document.getElementById('modalClose').addEventListener('click', () => {
+  document.getElementById('modal').classList.add('hidden');
+});
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') document.getElementById('modal').classList.add('hidden');
+});
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('modal-add-btn')) {
+    const idx = parseInt(e.target.dataset.idx);
+    ration.push({...products[idx], idx});
+    renderRation();
+    document.getElementById('modal').classList.add('hidden');
+  }
+});
+
+// ============ FILTERS ============
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderProducts(btn.dataset.filter);
+  });
+});
+
+// ============ PLATE CLICKS ============
+document.querySelectorAll('.plate-section').forEach(s => {
+  s.addEventListener('click', () => {
+    const info = {
+      veg: '🥦 Овочі та фрукти — половина тарілки!\nВітаміни, клітковина, вода.',
+      protein: '🍗 Білки — будівельний матеріал!\nМ\'ясо, риба, яйця, бобові.',
+      grain: '🍚 Складні вуглеводи — енергія!\nГречка, вівсянка, цільнозерновий хліб.',
+      dairy: '🥛 Молочні продукти — кальцій!\nМолоко, кефір, сир, йогурт.'
+    };
+    alert(info[s.dataset.plate]);
+  });
+});
+
+// ============ FREE BUILDER ============
+function renderRation() {
+  const list = document.getElementById('rationList');
+  const empty = document.getElementById('rationEmpty');
+  if (ration.length === 0) {
+    empty.style.display = 'block';
+    list.innerHTML = '';
+  } else {
+    empty.style.display = 'none';
+    list.innerHTML = ration.map((p, i) => `
+      <div class="meal-chip pop bg-white text-gray-800 rounded-full px-3 py-2 flex items-center gap-2 shadow-lg">
+        <span class="text-2xl">${p.emoji}</span>
+        <span class="font-bold text-sm">${p.name}</span>
+        <span class="text-xs text-orange-500 font-bold">${p.kcal}ккал</span>
+        <button class="remove-ration-btn w-6 h-6 rounded-full bg-red-100 hover:bg-red-200 text-red-600 font-bold" data-i="${i}">×</button>
+      </div>
+    `).join('');
+  }
+  const tot = ration.reduce((a, p) => ({k: a.k+p.kcal, p: a.p+p.p, f: a.f+p.f, c: a.c+p.c}), {k:0,p:0,f:0,c:0});
+  document.getElementById('totalCal').textContent = tot.k;
+  document.getElementById('totalP').textContent = tot.p + ' г';
+  document.getElementById('totalF').textContent = tot.f + ' г';
+  document.getElementById('totalC').textContent = tot.c + ' г';
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('remove-ration-btn')) {
+    const i = parseInt(e.target.dataset.i);
+    ration.splice(i, 1);
+    renderRation();
+  }
+});
+
+document.getElementById('clearRationBtn').addEventListener('click', () => {
+  ration = [];
+  renderRation();
+  document.getElementById('rationResult').classList.add('hidden');
+});
+
+document.getElementById('loadExampleBtn').addEventListener('click', () => {
+  ration = [];
+  [5, 0, 6, 1, 2, 7, 3, 9].forEach(i => ration.push({...products[i], idx: i}));
+  renderRation();
+  checkRation();
+});
+
+document.getElementById('checkRationBtn').addEventListener('click', checkRation);
+
+function checkRation() {
+  const res = document.getElementById('rationResult');
+  res.classList.remove('hidden');
+  const hasGood = ration.some(p => p.cat === 'good');
+  const hasBad = ration.some(p => p.cat === 'bad');
+  const tot = ration.reduce((a, p) => ({k: a.k+p.kcal, p: a.p+p.p, f: a.f+p.f, c: a.c+p.c}), {k:0,p:0,f:0,c:0});
+  const hasVeg = ration.some(p => /овоч|фрук/i.test(p.name));
+  const hasProtein = ration.some(p => /м'ясо|риб|яйц|сир твер|молок/i.test(p.name));
+  const hasGrain = ration.some(p => /греч/i.test(p.name));
+
+  let score = 0, msgs = [];
+  if (hasGood) { score += 3; msgs.push('✅ Є корисні продукти'); }
+  else msgs.push('❌ Немає обов\'язкових продуктів');
+  if (hasVeg) { score += 2; msgs.push('✅ Є овочі/фрукти'); }
+  else msgs.push('❌ Додай овочі та фрукти');
+  if (hasProtein) { score += 2; msgs.push('✅ Є білки'); }
+  else msgs.push('❌ Додай білки (м\'ясо, рибу, яйця)');
+  if (hasGrain) { score += 1; msgs.push('✅ Є складні вуглеводи'); }
+  else msgs.push('❌ Додай каші');
+  if (hasBad) { score -= 2; msgs.push('🚫 Є шкідливі продукти — прибери їх!'); }
+  if (tot.k >= 1600 && tot.k <= 2400) { score += 1; msgs.push('✅ Калорії в нормі'); }
+  else if (tot.k > 0) msgs.push(`⚠️ Калорії: ${tot.k} (треба ~2000)`);
+  if (ration.length >= 5) { score += 1; msgs.push('✅ Раціон різноманітний'); }
+
+  const maxScore = 12;
+  const percent = Math.max(0, Math.min(100, Math.round((score / maxScore) * 100)));
+  let verdict, color, emoji;
+  if (percent >= 80) { verdict = 'Чудовий раціон! Ти справжній експерт здорового харчування!'; color = 'bg-green-400'; emoji = '🏆'; }
+  else if (percent >= 50) { verdict = 'Непогано, але є що покращити!'; color = 'bg-yellow-400'; emoji = '👍'; }
+  else { verdict = 'Треба переглянути меню — додай більше корисних продуктів!'; color = 'bg-red-400'; emoji = '🤔'; }
+
+  res.innerHTML = `
+    <div class="bg-white rounded-2xl p-5 text-gray-800">
+      <div class="text-center mb-3">
+        <div class="text-5xl mb-2">${emoji}</div>
+        <div class="text-xl font-bold">Твій результат: ${percent}%</div>
+        <div class="w-full bg-gray-200 rounded-full h-3 mt-2 overflow-hidden">
+          <div class="result-bar ${color} h-full rounded-full" style="width:0%"></div>
+        </div>
+        <p class="mt-3 font-semibold">${verdict}</p>
+      </div>
+      <div class="space-y-1 text-sm">
+        ${msgs.map(m => `<div class="bg-gray-50 rounded-lg px-3 py-2">${m}</div>`).join('')}
+      </div>
+    </div>
+  `;
+  res.scrollIntoView({behavior: 'smooth', block: 'center'});
+  setTimeout(() => {
+    const bar = res.querySelector('.result-bar');
+    if (bar) bar.style.width = percent + '%';
+  }, 100);
+}
+
+// ============ COMPETENCY TASK ============
+const mealNames = {
+  breakfast: '🌅 Сніданок',
+  snack1: '🍎 Перекус 1',
+  lunch: '☀️ Обід',
+  snack2: '🍪 Перекус 2',
+  dinner: '🌙 Вечеря'
+};
+
+// Render task product picker
+function renderTaskPicker() {
+  const picker = document.getElementById('taskProductPicker');
+  picker.innerHTML = '';
+  products.forEach((p, idx) => {
+    const bg = p.cat === 'good' ? 'bg-green-400/40 hover:bg-green-400/60 border-green-300' 
+              : p.cat === 'moderate' ? 'bg-yellow-400/40 hover:bg-yellow-400/60 border-yellow-300'
+              : 'bg-red-400/40 hover:bg-red-400/60 border-red-300';
+    const btn = document.createElement('button');
+    btn.className = `task-pick-btn ${bg} border-2 rounded-xl p-2 text-center transition`;
+    btn.dataset.idx = idx;
+    btn.innerHTML = `<div class="text-2xl">${p.emoji}</div><div class="text-xs font-bold truncate">${p.name}</div>`;
+    picker.appendChild(btn);
+  });
+}
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.task-pick-btn');
+  if (btn) {
+    const idx = parseInt(btn.dataset.idx);
+    addToMeal(activeMeal, idx);
+  }
+});
+
+function addToMeal(meal, idx) {
+  const p = products[idx];
+  // Check if already in this meal
+  if (taskMenu[meal].some(x => x.idx === idx)) {
+    flashMessage('⚠️ Цей продукт вже в ' + mealNames[meal]);
+    return;
+  }
+  taskMenu[meal].push({...p, idx});
+  renderMeal(meal);
+  flashMessage('✅ ' + p.emoji + ' ' + p.name + ' додано до ' + mealNames[meal]);
+}
+
+function removeFromMeal(meal, i) {
+  taskMenu[meal].splice(i, 1);
+  renderMeal(meal);
+}
+
+function renderMeal(meal) {
+  const slot = document.querySelector(`.meal-slot[data-meal="${meal}"]`);
+  const count = document.querySelector(`.meal-count[data-meal="${meal}"]`);
+  slot.innerHTML = taskMenu[meal].map((p, i) => `
+    <div class="meal-chip bg-white text-gray-800 rounded-full px-2 py-1 flex items-center gap-1 shadow text-xs">
+      <span>${p.emoji}</span>
+      <span class="font-bold">${p.name}</span>
+      <button class="remove-meal-btn w-4 h-4 rounded-full bg-red-100 hover:bg-red-300 text-red-600 font-bold text-xs" data-meal="${meal}" data-i="${i}">×</button>
+    </div>
+  `).join('');
+  count.textContent = `(${taskMenu[meal].length})`;
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('remove-meal-btn')) {
+    const meal = e.target.dataset.meal;
+    const i = parseInt(e.target.dataset.i);
+    removeFromMeal(meal, i);
+  }
+});
+
+// Active meal selector
+document.querySelectorAll('.meal-target-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeMeal = btn.dataset.target;
+    document.querySelectorAll('.meal-target-btn').forEach(b => b.classList.remove('ring-4','ring-white'));
+    btn.classList.add('ring-4','ring-white');
+    document.getElementById('activeMealName').textContent = mealNames[activeMeal];
+  });
+});
+
+// Flash message
+function flashMessage(text) {
+  const el = document.createElement('div');
+  el.className = 'fixed top-4 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl z-50 pop font-bold';
+  el.textContent = text;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1800);
+}
+
+// Step navigation
+function goToStep(n) {
+  currentStep = n;
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.add('hidden'));
+  document.querySelector(`.step-panel[data-step="${n}"]`).classList.remove('hidden');
+  document.querySelectorAll('.step-dot').forEach(d => {
+    const s = parseInt(d.dataset.step);
+    d.classList.remove('active','done');
+    d.classList.remove('bg-white/20');
+    d.classList.add('bg-white/20');
+    if (s < n) { d.classList.add('done'); d.classList.remove('bg-white/20'); }
+    else if (s === n) { d.classList.add('active'); d.classList.remove('bg-white/20'); }
+  });
+  if (n === 3) renderTaskSummary();
+  if (n === 4) renderFinalResult();
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('next-step-btn')) {
+    if (currentStep === 2) {
+      const total = Object.values(taskMenu).reduce((a, m) => a + m.length, 0);
+      if (total < 3) {
+        flashMessage('⚠️ Додай хоча б 3 продукти до меню!');
+        return;
+      }
+    }
+    if (currentStep < 4) goToStep(currentStep + 1);
+  }
+  if (e.target.classList.contains('prev-step-btn')) {
+    if (currentStep > 1) goToStep(currentStep - 1);
+  }
+});
+
+function renderTaskSummary() {
+  const box = document.getElementById('taskSummary');
+  let html = '';
+  let totalK = 0, totalP = 0, totalF = 0, totalC = 0;
+  let goodCount = 0, badCount = 0, modCount = 0;
+  Object.keys(taskMenu).forEach(meal => {
+    const items = taskMenu[meal];
+    html += `<div class="bg-white/10 rounded-xl p-3">
+      <div class="font-bold mb-2">${mealNames[meal]} (${items.length})</div>`;
+    if (items.length === 0) {
+      html += `<div class="text-sm opacity-70 italic">порожньо</div>`;
+    } else {
+      html += `<div class="flex flex-wrap gap-1">`;
+      items.forEach(p => {
+        html += `<span class="bg-white/30 rounded-full px-2 py-1 text-xs">${p.emoji} ${p.name} <b>${p.kcal}ккал</b></span>`;
+        totalK += p.kcal; totalP += p.p; totalF += p.f; totalC += p.c;
+        if (p.cat === 'good') goodCount++;
+        else if (p.cat === 'moderate') modCount++;
+        else badCount++;
+      });
+      html += `</div>`;
+    }
+    html += `</div>`;
+  });
+  html += `<div class="bg-yellow-300 text-gray-900 rounded-xl p-3 font-bold text-center">
+    📊 Загалом: ${totalK} ккал • Б:${totalP}г • Ж:${totalF}г • В:${totalC}г | ✅${goodCount} ⚠️${modCount} 🚫${badCount}
+  </div>`;
+  box.innerHTML = html;
+}
+
+document.getElementById('analyzeBtn').addEventListener('click', () => {
+  const box = document.getElementById('taskAnalysis');
+  box.classList.remove('hidden');
+  
+  let totalK = 0, goodCount = 0, badCount = 0;
+  let hasVeg = false, hasProtein = false, hasGrain = false, hasDairy = false;
+  let badMeals = [];
+  let allProducts = [];
+  
+  Object.keys(taskMenu).forEach(meal => {
+    taskMenu[meal].forEach(p => {
+      allProducts.push({...p, meal});
+      totalK += p.kcal;
+      if (p.cat === 'good') goodCount++;
+      else if (p.cat === 'bad') { badCount++; badMeals.push({meal, name: p.name}); }
+      if (/овоч|фрук/i.test(p.name)) hasVeg = true;
+      if (/м'ясо|риб|яйц/i.test(p.name)) hasProtein = true;
+      if (/греч/i.test(p.name)) hasGrain = true;
+      if (/молок|йогурт|сир твер/i.test(p.name)) hasDairy = true;
+    });
+  });
+
+  let tips = [];
+  if (!hasVeg) tips.push('🥦 Додай овочі або фрукти — хоча б у 2 прийоми їжі');
+  if (!hasProtein) tips.push('🍗 Додай білок (м\'ясо, рибу, яйця) — важливо для м\'язів');
+  if (!hasGrain) tips.push('🌾 Додай кашу (гречку) — дасть енергію на весь день');
+  if (!hasDairy) tips.push('🥛 Додай молочне — кальцій для кісток');
+  if (badCount > 0) tips.push('🚫 Прибери шкідливі продукти: ' + badMeals.map(b => b.name).join(', '));
+  if (totalK < 1500) tips.push('⚠️ Замало калорій! Треба ~2000 ккал для підлітка');
+  if (totalK > 2500) tips.push('⚠️ Забагато калорій! Обери менш калорійні продукти');
+  if (tips.length === 0) tips.push('🎉 Чудово! Твій раціон збалансований!');
+
+  box.innerHTML = `
+    <div class="bg-white/20 rounded-xl p-4">
+      <div class="font-bold mb-2">🔬 Результат аналізу:</div>
+      <ul class="space-y-1 text-sm">
+        ${tips.map(t => `<li class="bg-white/20 rounded-lg px-3 py-2">${t}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+});
+
+function renderFinalResult() {
+  const box = document.getElementById('taskFinalResult');
+  let totalK = 0, goodCount = 0, badCount = 0, modCount = 0;
+  let hasVeg = false, hasProtein = false, hasGrain = false, hasDairy = false;
+  let vitamins = new Set();
+  let mealsWith = 0;
+  
+  Object.keys(taskMenu).forEach(meal => {
+    if (taskMenu[meal].length > 0) mealsWith++;
+    taskMenu[meal].forEach(p => {
+      totalK += p.kcal;
+      if (p.cat === 'good') goodCount++;
+      else if (p.cat === 'moderate') modCount++;
+      else badCount++;
+      if (/овоч|фрук/i.test(p.name)) hasVeg = true;
+      if (/м'ясо|риб|яйц/i.test(p.name)) hasProtein = true;
+      if (/греч/i.test(p.name)) hasGrain = true;
+      if (/молок|йогурт|сир твер/i.test(p.name)) hasDairy = true;
+      p.vitamins.forEach(v => vitamins.add(v));
+    });
+  });
+
+  let score = 0;
+  if (hasVeg) score += 2;
+  if (hasProtein) score += 2;
+  if (hasGrain) score += 1;
+  if (hasDairy) score += 1;
+  if (goodCount >= 5) score += 2;
+  if (mealsWith >= 4) score += 1;
+  if (badCount === 0) score += 2;
+  else score -= badCount;
+  if (totalK >= 1500 && totalK <= 2500) score += 1;
+  if (vitamins.size >= 4) score += 1;
+  
+  const maxScore = 14;
+  const percent = Math.max(0, Math.min(100, Math.round((score / maxScore) * 100)));
+  
+  let title, emoji, message, color, grade;
+  if (percent >= 85) {
+    title = 'Ти — експерт зі здорового харчування!';
+    emoji = '🏆';
+    message = 'Твій раціон збалансований, багатий на вітаміни та поживні речовини. Ти дбаєш про своє здоров\'я як справжній профі!';
+    color = 'from-green-400 to-emerald-500';
+    grade = '12 балів';
+  } else if (percent >= 65) {
+    title = 'Дуже добре! Майже ідеально!';
+    emoji = '🌟';
+    message = 'Твій раціон хороший, але є куди рости. Додай більше овочів або прибери шкідливі продукти.';
+    color = 'from-blue-400 to-cyan-500';
+    grade = '10 балів';
+  } else if (percent >= 40) {
+    title = 'Непогано, але треба покращити';
+    emoji = '👍';
+    message = 'У тебе є корисні продукти, але раціон потребує більше різноманітності. Переглянь свої вибори.';
+    color = 'from-yellow-400 to-orange-500';
+    grade = '7-8 балів';
+  } else {
+    title = 'Треба переглянути меню';
+    emoji = '🤔';
+    message = 'Твій раціон містить забагато шкідливих продуктів або недостатньо корисних. Спробуй ще раз!';
+    color = 'from-red-400 to-pink-500';
+    grade = '4-6 балів';
+  }
+
+  box.innerHTML = `
+    <div class="text-center mb-4">
+      <div class="text-7xl mb-3 pop">${emoji}</div>
+      <div class="text-3xl font-bold mb-2">${title}</div>
+      <div class="inline-block bg-gradient-to-r ${color} text-white px-6 py-2 rounded-full font-bold text-lg mb-3">${grade}</div>
+    </div>
+    <div class="bg-white/20 rounded-xl p-4 mb-4">
+      <div class="font-bold mb-2">📊 Твій результат:</div>
+      <div class="w-full bg-white/30 rounded-full h-4 overflow-hidden mb-2">
+        <div class="result-bar bg-gradient-to-r ${color} h-full rounded-full" style="width:0%"></div>
+      </div>
+      <div class="text-center font-bold text-lg">${percent}% збалансованості</div>
+    </div>
+    <div class="bg-white/20 rounded-xl p-4 mb-4">
+      <p class="text-lg leading-relaxed">${message}</p>
+    </div>
+    <div class="grid grid-cols-2 gap-2 mb-4">
+      <div class="bg-white/20 rounded-lg p-3 text-center">
+        <div class="text-2xl">🔥</div>
+        <div class="text-xs opacity-80">Калорії</div>
+        <div class="font-bold">${totalK} ккал</div>
+      </div>
+      <div class="bg-white/20 rounded-lg p-3 text-center">
+        <div class="text-2xl">💊</div>
+        <div class="text-xs opacity-80">Вітамінів</div>
+        <div class="font-bold">${vitamins.size}</div>
+      </div>
+      <div class="bg-white/20 rounded-lg p-3 text-center">
+        <div class="text-2xl">✅</div>
+        <div class="text-xs opacity-80">Корисних</div>
+        <div class="font-bold">${goodCount}</div>
+      </div>
+      <div class="bg-white/20 rounded-lg p-3 text-center">
+        <div class="text-2xl">🚫</div>
+        <div class="text-xs opacity-80">Шкідливих</div>
+        <div class="font-bold">${badCount}</div>
+      </div>
+    </div>
+    <div class="bg-yellow-300 text-gray-900 rounded-xl p-4 text-center font-bold">
+      💡 Пам'ятай: збалансоване харчування = здоров'я + енергія + гарний настрій!
+    </div>
+  `;
+  setTimeout(() => {
+    const bar = box.querySelector('.result-bar');
+    if (bar) bar.style.width = percent + '%';
+  }, 100);
+}
+
+document.getElementById('restartTaskBtn').addEventListener('click', () => {
+  taskMenu = { breakfast: [], snack1: [], lunch: [], snack2: [], dinner: [] };
+  Object.keys(taskMenu).forEach(m => renderMeal(m));
+  document.getElementById('taskAnalysis').classList.add('hidden');
+  goToStep(1);
+});
+
+// ============ INIT ============
+renderProducts();
+renderTaskPicker();
+Object.keys(taskMenu).forEach(m => renderMeal(m));
+</script>
+</body>
+</html>
